@@ -611,8 +611,9 @@ void AdaptiveLoopFilter::filterAreaChromaBothCc( const CPelUnitBuf& srcBuf,
   const int filterIdxCr =
       slice->getTileGroupCcAlfEnabledFlag(COMPONENT_Cr - 1) ? ctuAlfData.ccAlfFilterControl[COMPONENT_Cr - 1] : 0;
   
-  if (filterIdxCb && filterIdxCr) {
-    const Area blk(Position(0, 0), Size(srcBuf.get(COMPONENT_Cb)));
+  if( filterIdxCb && filterIdxCr )
+  {
+    const Area blk( Position( 0, 0 ), Size( srcBuf.get( COMPONENT_Cb ) ) );
     int apsIdxCb = slice->getTileGroupCcAlfCbApsId();
     const int16_t* filterCoeffCb =
         slice->getAlfAPSs()[apsIdxCb]->getCcAlfAPSParam().ccAlfCoeff[COMPONENT_Cb - 1][filterIdxCb - 1];
@@ -622,9 +623,12 @@ void AdaptiveLoopFilter::filterAreaChromaBothCc( const CPelUnitBuf& srcBuf,
 
     m_filterCcAlfBoth( dstBuf.get( COMPONENT_Cb ), dstBuf.get( COMPONENT_Cr ), srcBuf, blkChroma, blkLuma, filterCoeffCb, filterCoeffCr, clpRngs, m_alfVBLumaCTUHeight, m_alfVBLumaPos );
 
-  } else {
-    if (filterIdxCb) {
-      const Area blk(Position(0, 0), Size(srcBuf.get(COMPONENT_Cb)));
+  }
+  else
+  {
+    if( filterIdxCb )
+    {
+      const Area blk( Position( 0, 0 ), Size( srcBuf.get( COMPONENT_Cb ) ) );
       int apsIdx = slice->getTileGroupCcAlfCbApsId();
       const int16_t* filterCoeff =
           slice->getAlfAPSs()[apsIdx]->getCcAlfAPSParam().ccAlfCoeff[COMPONENT_Cb - 1][filterIdxCb - 1];
@@ -632,8 +636,9 @@ void AdaptiveLoopFilter::filterAreaChromaBothCc( const CPelUnitBuf& srcBuf,
       m_filterCcAlf( dstBuf.get( COMPONENT_Cb ), srcBuf, blkChroma, blkLuma, COMPONENT_Cb, filterCoeff, clpRngs, m_alfVBLumaCTUHeight, m_alfVBLumaPos );
     }
 
-    if (filterIdxCr) {
-      const Area blk(Position(0, 0), Size(srcBuf.get(COMPONENT_Cr)));
+    if( filterIdxCr )
+    {
+      const Area blk( Position( 0, 0 ), Size( srcBuf.get( COMPONENT_Cr ) ) );
       int apsIdx = slice->getTileGroupCcAlfCrApsId();
       const int16_t* filterCoeff =
           slice->getAlfAPSs()[apsIdx]->getCcAlfAPSParam().ccAlfCoeff[COMPONENT_Cr - 1][filterIdxCr - 1];
@@ -716,7 +721,7 @@ void AdaptiveLoopFilter::filterCTU( const CPelUnitBuf&     srcBuf,
     }
     
     // has chroma
-    if(numComp > 1)
+    if( numComp > 1 )
     {
       const Area blkLuma  ( Position( 0, 0 ), Size( width, height ) );
       const Area blkChroma( Position( 0, 0 ), Size( srcBuf.get( COMPONENT_Cb ) ) );
