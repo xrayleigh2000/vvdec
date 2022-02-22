@@ -221,7 +221,7 @@ bool CABACReader::dt_implicit_qt_split( CodingStructure& cs, Partitioner& partit
   return isLast;
 }
 
-short CABACReader::readAlfCtuFilterIndex2( CodingStructure& cs, unsigned ctuRsAddr )
+short CABACReader::readAlfCtuFilterIndex( CodingStructure& cs, unsigned ctuRsAddr )
 {
   const unsigned numAps               = m_slice->getTileGroupNumAps();
   const unsigned numAvailableFiltSets = numAps + NUM_FIXED_FILTER_SETS;
@@ -426,7 +426,7 @@ void CABACReader::readAlf( CodingStructure& cs, unsigned int ctuRsAddr, const Pa
       
         if( isLuma( ( ComponentID ) compIdx ) && currAlfData.alfCtuEnableFlag[compIdx] )
         {
-          currAlfData.alfCtbFilterIndex = readAlfCtuFilterIndex2( cs, ctuRsAddr );
+          currAlfData.alfCtbFilterIndex = readAlfCtuFilterIndex( cs, ctuRsAddr );
         }
 
         if( isChroma( ( ComponentID ) compIdx ) )
