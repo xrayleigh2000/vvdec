@@ -468,8 +468,8 @@ void AdaptiveLoopFilter::processCTU( CodingStructure & cs, unsigned col, unsigne
 
   const UnitArea ctuArea( getCtuArea( cs, col, line, true ) );
 
-  const unsigned ctuIdx = line * cs.pcv->widthInCtus + col;
-  CtuAlfData currAlfData = cs.picture->getCtuAlfData(ctuIdx);
+  const unsigned ctuIdx  = line * cs.pcv->widthInCtus + col;
+  CtuAlfData currAlfData = cs.getCtuData( col, line ).alfParam;
   currAlfData.alfCtuEnableFlag[1] += currAlfData.ccAlfFilterControl[0] > 0 ? 2 : 0;
   currAlfData.alfCtuEnableFlag[2] += currAlfData.ccAlfFilterControl[1] > 0 ? 2 : 0;
 

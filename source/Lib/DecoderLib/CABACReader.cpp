@@ -405,18 +405,12 @@ void CABACReader::readAlf(CodingStructure &cs, unsigned int ctuRsAddr, const Par
     bool                leftAvail  = cs.getCURestricted( pos.offset( -1, 0 ), pos, partitioner.currSliceIdx, partitioner.currTileIdx, CH_L ) ? true : false;
     bool                aboveAvail = cs.getCURestricted( pos.offset( 0, -1 ), pos, partitioner.currSliceIdx, partitioner.currTileIdx, CH_L ) ? true : false;
   
-    int leftCTUAddr  = leftAvail  ? ctuRsAddr - 1 : -1;
-    int aboveCTUAddr = aboveAvail ? ctuRsAddr - frame_width_in_ctus : -1;
-    CtuAlfData& currAlfData = m_slice->getPic()->getCtuAlfData(ctuRsAddr);
-    // init currAlfData
-    GCC_WARNING_DISABLE_class_memaccess
-    memset(&currAlfData, 0, sizeof(currAlfData));
-    GCC_WARNING_RESET
+    CtuAlfData& currAlfData = cs.getCtuData( ctuRsAddr ).alfParam;
     CtuAlfData  leftAlfData, aboveAlfData;
     if (leftAvail)
-        leftAlfData = m_slice->getPic()->getCtuAlfData(leftCTUAddr);
+        leftAlfData = cs.getCtuData( ctuRsAddr - 1 ).alfParam;
     if (aboveAvail)
-        aboveAlfData = m_slice->getPic()->getCtuAlfData(aboveCTUAddr);
+        aboveAlfData = cs.getCtuData( ctuRsAddr - frame_width_in_ctus ).alfParam;
     if( m_slice->getTileGroupAlfEnabledFlag( COMPONENT_Y ) )
     {
         for( int compIdx = 0; compIdx < MAX_NUM_COMPONENT; compIdx++ )
