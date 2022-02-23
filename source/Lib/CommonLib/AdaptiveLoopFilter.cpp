@@ -622,7 +622,6 @@ void AdaptiveLoopFilter::filterAreaChromaBothCc( const CPelUnitBuf& srcBuf,
         slice->getAlfAPSs()[apsIdxCr]->getCcAlfAPSParam().ccAlfCoeff[COMPONENT_Cr - 1][filterIdxCr - 1];
 
     m_filterCcAlfBoth( dstBuf.get( COMPONENT_Cb ), dstBuf.get( COMPONENT_Cr ), srcBuf, blkChroma, blkLuma, filterCoeffCb, filterCoeffCr, clpRngs, m_alfVBLumaCTUHeight, m_alfVBLumaPos );
-
   }
   else
   {
